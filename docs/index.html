@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="brain is a personal, model-independent project brain for AI coding editors.">
+  <title>brain | Project Brain for AI Coding Editors</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1020;
+      --panel: #141b31;
+      --text: #eef2ff;
+      --muted: #aab4d0;
+      --accent: #7dd3fc;
+      --line: #293452;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.65 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    main { width: min(920px, calc(100% - 32px)); margin: 0 auto; padding: 72px 0; }
+    header { padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0 0 12px; font-size: clamp(3rem, 9vw, 6rem); line-height: 1; }
+    h2 { margin-top: 48px; font-size: 1.6rem; }
+    p, li { color: var(--muted); }
+    strong, code { color: var(--text); }
+    .tag { color: var(--accent); font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
+    .lead { max-width: 720px; font-size: 1.25rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; }
+    .card { padding: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+    pre {
+      overflow-x: auto;
+      padding: 20px;
+      background: #070b16;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: #dbeafe;
+    }
+    a { color: var(--accent); }
+    footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--line); color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="tag">Personal project</div>
+      <h1>brain</h1>
+      <p class="lead">
+        A model-independent project brain for AI coding editors. It keeps
+        durable intent, architecture, constraints, decisions, experiments, and
+        current focus beside the source code.
+      </p>
+    </header>
+
+    <section>
+      <h2>What it solves</h2>
+      <div class="grid">
+        <div class="card">
+          <strong>Session continuity</strong>
+          <p>A new model or editor can reconstruct the project before editing.</p>
+        </div>
+        <div class="card">
+          <strong>Focused context</strong>
+          <p>A small boot set loads first; deeper knowledge loads only when relevant.</p>
+        </div>
+        <div class="card">
+          <strong>Protected behavior</strong>
+          <p>Every significant change begins with an impact check and ends with verification.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Structure</h2>
+      <pre>project-root/
+├── PROJECT_BRAIN.md      # Universal entrypoint
+├── AGENTS.md             # Optional thin editor adapter
+└── project-brain/
+    ├── MANIFEST.yaml     # Boot and on-demand loading
+    ├── purpose/
+    ├── glossary/
+    ├── architecture/
+    ├── features/
+    ├── plans/
+    ├── changes/
+    ├── decisions/
+    ├── state/
+    ├── memory/
+    └── rules/</pre>
+    </section>
+
+    <section>
+      <h2>Use it now</h2>
+      <ol>
+        <li>Install this npm package globally once.</li>
+        <li>Run <code>project-brain init</code> inside any project.</li>
+        <li>Run <code>project-brain validate</code> to verify the generated structure.</li>
+        <li>Replace unverified placeholders with facts from the target source code.</li>
+        <li>Tell the AI editor to follow <code>PROJECT_BRAIN.md</code>.</li>
+      </ol>
+      <p>
+        CLI initialization and structural validation are ready. Automatic deep
+        source analysis and complex-monorepo testing remain planned.
+      </p>
+    </section>
+
+    <section>
+      <h2>Core rules</h2>
+      <ul>
+        <li>Product intent comes from <code>PURPOSE.md</code>.</li>
+        <li>Inspected code represents current implementation.</li>
+        <li>Conflicts are reported, never silently resolved.</li>
+        <li>Plans preserve provenance but are not authority.</li>
+        <li>Secrets and production or customer data never enter project-brain.</li>
+      </ul>
+    </section>
+
+    <footer>
+      brain is maintained as a personal project by Samir Sawarkar.
+    </footer>
+  </main>
+</body>
+</html>

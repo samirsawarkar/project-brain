@@ -1,0 +1,73 @@
+version: "2.0"
+project: "brain"
+last_updated: "2026-06-15"
+
+boot:
+  - file: "project-brain/purpose/PURPOSE.md"
+    why: "Authoritative product intent and scope."
+  - file: "project-brain/state/PROJECT_STATE.md"
+    why: "Current reality and the single active focus."
+    freshness: "verify_per_session"
+  - file: "project-brain/rules/CONSTRAINTS.md"
+    why: "Hard limits, security boundaries, and rejected approaches."
+  - file: "project-brain/glossary/GLOSSARY.md"
+    why: "Project vocabulary that overrides general interpretations."
+  - file: "project-brain/architecture/SYSTEM.md"
+    why: "Current system structure and knowledge boundaries."
+  - file: "project-brain/rules/AI_INSTRUCTIONS.md"
+    why: "Required AI workflow, permissions, and impact check."
+
+on_demand:
+  - name: "feature"
+    trigger: "Questions or changes concerning a specific feature domain."
+    load: ["project-brain/features/{DOMAIN}.md"]
+  - name: "environment"
+    trigger: "Runtime, dependencies, deployment, tooling, CI, or infrastructure."
+    load: ["project-brain/architecture/ENVIRONMENT.md"]
+  - name: "decisions"
+    trigger: "Why something was chosen, alternatives, or major design changes."
+    load: ["project-brain/decisions/DECISIONS.md"]
+  - name: "experiments"
+    trigger: "Proposing an approach or asking what was tried, failed, or rejected."
+    load: ["project-brain/memory/EXPERIMENTS.md"]
+  - name: "memory"
+    trigger: "Project history, durable lessons, or recurring patterns."
+    load: ["project-brain/memory/MEMORY.md"]
+  - name: "changes"
+    trigger: "Durable behavior, architecture, dependency, constraint, or decision history."
+    load: ["project-brain/changes/CHANGELOG.md"]
+  - name: "plans"
+    trigger: "Planning, roadmap, sequencing, timeline, or current implementation plan."
+    load: ["project-brain/plans/active/"]
+
+always_check_before_proposal:
+  - "project-brain/rules/CONSTRAINTS.md"
+  - "project-brain/memory/EXPERIMENTS.md"
+
+freshness:
+  "project-brain/state/PROJECT_STATE.md":
+    rule: "Verify FOCUS at the start of each session; do not overwrite it automatically."
+  "project-brain/memory/EXPERIMENTS.md":
+    rule: "Update when an approach is tried and produces a durable lesson."
+  "project-brain/changes/CHANGELOG.md":
+    rule: "Update only when durable project knowledge changes."
+  "project-brain/glossary/GLOSSARY.md":
+    rule: "Update when project-specific terms are introduced or clarified."
+
+relationships:
+  "project-brain/architecture/SYSTEM.md":
+    see_also:
+      - "project-brain/architecture/ENVIRONMENT.md"
+      - "project-brain/decisions/DECISIONS.md"
+  "project-brain/state/PROJECT_STATE.md":
+    depends_on:
+      - "project-brain/purpose/PURPOSE.md"
+  "project-brain/features/{DOMAIN}.md":
+    depends_on:
+      - "project-brain/architecture/SYSTEM.md"
+      - "project-brain/rules/CONSTRAINTS.md"
+
+budget:
+  boot_token_target: 2000
+  note: "Keep boot files dense and current. Load detailed history only on demand."
+

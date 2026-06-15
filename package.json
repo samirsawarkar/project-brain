@@ -1,0 +1,34 @@
+{
+  "name": "project-brain-cli",
+  "version": "0.1.0",
+  "description": "Initialize and validate a model-independent project brain for AI coding editors.",
+  "license": "MIT",
+  "author": "Samir Sawarkar",
+  "type": "module",
+  "bin": {
+    "project-brain": "./bin/project-brain.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "templates/",
+    "LICENSE",
+    "README.md"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "validate": "node ./bin/project-brain.js validate .",
+    "check": "npm test && npm run validate",
+    "prepublishOnly": "npm run check"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "ai",
+    "coding-editor",
+    "project-context",
+    "project-brain",
+    "cli"
+  ]
+}
