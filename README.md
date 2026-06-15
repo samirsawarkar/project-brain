@@ -69,16 +69,10 @@ Request: [your task]
 Install the CLI once, then initialize project-brain in any project:
 
 ```bash
-npm install -g project-brain-cli
+npm install -g git+https://github.com/samirsawarkar/project-brain.git
 cd /path/to/your-project
 project-brain init
 project-brain validate
-```
-
-Until the package is published, install directly from this source directory:
-
-```bash
-npm install -g "/path/to/Project-brain"
 ```
 
 `project-brain init [directory]` creates `PROJECT_BRAIN.md`, a thin `AGENTS.md`
