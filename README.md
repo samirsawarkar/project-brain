@@ -48,21 +48,71 @@ project-root/
 - Domain contracts preserve behavior and invariants.
 - Secrets and production/customer data never enter project-brain.
 
-## Editor Integration
+## Workflow
 
-Point editor-specific instruction files such as `AGENTS.md`, `CLAUDE.md`, or
-Cursor rules to `PROJECT_BRAIN.md`. Do not maintain separate instruction
-systems.
+Once initialized and verified, you should **not** run the bootstrap prompt for every task.
 
-For an editor that does not discover the entrypoint automatically:
+### Every New AI Session
+
+Use this once at the beginning:
 
 ```text
-Follow PROJECT_BRAIN.md before handling this request. Boot through
-project-brain/MANIFEST.yaml, load relevant on-demand context, inspect the source,
-confirm FOCUS, and perform the mandatory impact check before making changes.
-
-Request: [your task]
+Follow PROJECT_BRAIN.md before handling requests. Boot through the manifest,
+confirm FOCUS, and report readiness.
 ```
+
+After booting, give normal requests:
+
+```text
+Add pagination to the skills API.
+```
+
+The AI must automatically:
+
+1. Read `PROJECT_BRAIN.md`.
+2. Load the manifest boot files.
+3. Load request-relevant on-demand files.
+4. Inspect relevant code and tests.
+5. Check constraints and experiments.
+6. Confirm the request matches FOCUS.
+7. Perform an impact check.
+8. Implement and verify.
+9. Update project-brain only if durable knowledge changed.
+
+## Editor Automation
+
+You should not need to mention project-brain for every command.
+
+Keep `AGENTS.md` at the project root:
+
+```markdown
+# AGENTS.md
+
+Before handling any request:
+
+1. Read `PROJECT_BRAIN.md`.
+2. Follow `project-brain/MANIFEST.yaml`.
+3. Load boot files and relevant on-demand context.
+4. Inspect relevant source before making claims.
+5. Confirm FOCUS.
+6. Perform the required impact check before significant edits.
+7. Update project-brain only when durable knowledge changes.
+```
+
+Editors that automatically discover `AGENTS.md`, such as Codex, will boot correctly for every request.
+
+For editors that do not discover it automatically, configure one permanent project instruction:
+
+```text
+Always follow PROJECT_BRAIN.md before reading or changing this project.
+```
+
+Therefore:
+
+- **Bootstrap prompt:** once, for initial analysis.
+- **Session boot prompt:** once per new chat when needed.
+- **Normal commands:** no project-brain reminder required after boot.
+- **Project-brain updates:** only when durable knowledge changes.
 
 ## Status
 
