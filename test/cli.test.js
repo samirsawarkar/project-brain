@@ -33,6 +33,7 @@ test("init creates a neutral project-brain using the package name", async () => 
     "PROJECT_BRAIN.md",
     "project-brain",
     "AGENTS.md",
+    "PROJECT_BRAIN_BOOTSTRAP.md",
   ]);
   const manifest = await readFile(
     path.join(target, "project-brain", "MANIFEST.yaml"),

@@ -15,7 +15,7 @@ import { fileURLToPath } from "node:url";
 
 const TEMPLATE_ROOT = fileURLToPath(new URL("../templates/base/", import.meta.url));
 const REQUIRED_TARGETS = ["PROJECT_BRAIN.md", "project-brain"];
-const OPTIONAL_TARGETS = ["AGENTS.md"];
+const OPTIONAL_TARGETS = ["AGENTS.md", "PROJECT_BRAIN_BOOTSTRAP.md"];
 
 async function exists(file) {
   try {

@@ -76,8 +76,8 @@ project-brain validate
 ```
 
 `project-brain init [directory]` creates `PROJECT_BRAIN.md`, a thin `AGENTS.md`
-when one does not already exist, and a neutral `project-brain/` structure.
-Generated project facts are marked unverified until inspected.
+when one does not already exist, a `PROJECT_BRAIN_BOOTSTRAP.md` prompt file, and a neutral `project-brain/` structure.
+Generated project facts are marked unverified until inspected. You can ask your AI editor to run `PROJECT_BRAIN_BOOTSTRAP.md` to automatically verify and populate the brain with your project's context.
 
 Initialization refuses to replace managed files by default. Use
 `project-brain init --force` only when you want existing managed files backed up
