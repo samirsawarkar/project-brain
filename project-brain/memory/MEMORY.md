@@ -1,6 +1,6 @@
 ---
 last_verified: 2026-06-15
-verified_against: unversioned
+verified_against: 58a600f
 status: verified
 owner: project
 ---
@@ -52,4 +52,3 @@ context.
 - Mark uncertain knowledge `unverified`; never write assumptions as facts.
 - Update knowledge at the moment a durable lesson is discovered.
 - Keep source references precise enough for the next model to verify.
-
