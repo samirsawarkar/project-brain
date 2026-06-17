@@ -72,6 +72,41 @@ test("init refuses managed conflicts without force", async () => {
   );
 });
 
+test("init repairs a partial install with an existing managed entrypoint", async () => {
+  const target = await tempProject();
+  await writeFile(
+    path.join(target, "PROJECT_BRAIN.md"),
+    "# Project Brain Protocol\n\nRead `project-brain/MANIFEST.yaml`.\n",
+  );
+
+  const result = await initProject(target);
+
+  assert.ok(result.created.includes("project-brain"));
+  assert.ok(result.skipped.includes("PROJECT_BRAIN.md"));
+  assert.equal((await validateProject(target)).valid, true);
+});
+
+test("init refuses an unrelated PROJECT_BRAIN.md without force", async () => {
+  const target = await tempProject();
+  await writeFile(path.join(target, "PROJECT_BRAIN.md"), "private project notes\n");
+
+  await assert.rejects(
+    initProject(target),
+    /managed files already exist: PROJECT_BRAIN\.md/,
+  );
+});
+
+test("init is idempotent for an existing valid project-brain installation", async () => {
+  const target = await tempProject();
+  await initProject(target);
+
+  const result = await initProject(target);
+
+  assert.ok(result.skipped.includes("PROJECT_BRAIN.md"));
+  assert.ok(result.skipped.includes("project-brain"));
+  assert.equal((await validateProject(target)).valid, true);
+});
+
 test("force backs up managed conflicts before replacement", async () => {
   const target = await tempProject();
   await writeFile(path.join(target, "PROJECT_BRAIN.md"), "existing\n");

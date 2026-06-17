@@ -46,6 +46,26 @@ async function detectProjectName(target) {
   return path.basename(target);
 }
 
+async function isManagedEntrypoint(file) {
+  try {
+    const content = await readFile(file, "utf8");
+    return (
+      content.includes("# Project Brain Protocol") &&
+      content.includes("project-brain/MANIFEST.yaml")
+    );
+  } catch {
+    return false;
+  }
+}
+
+async function isManagedProjectBrainDirectory(directory) {
+  const directoryStats = await stat(directory).catch(() => null);
+  if (!directoryStats?.isDirectory()) {
+    return false;
+  }
+  return exists(path.join(directory, "MANIFEST.yaml"));
+}
+
 async function renderTemplates(root, replacements) {
   const rootStats = await stat(root);
   if (!rootStats.isDirectory()) {
@@ -89,8 +109,22 @@ export async function initProject(directory, options = {}) {
   }
 
   const conflicts = [];
+  const preservedRequired = new Set();
   for (const relative of REQUIRED_TARGETS) {
-    if (await exists(path.join(target, relative))) {
+    const destination = path.join(target, relative);
+    if (!(await exists(destination))) {
+      continue;
+    }
+
+    if (options.force) {
+      continue;
+    }
+
+    if (relative === "PROJECT_BRAIN.md" && await isManagedEntrypoint(destination)) {
+      preservedRequired.add(relative);
+    } else if (relative === "project-brain" && await isManagedProjectBrainDirectory(destination)) {
+      preservedRequired.add(relative);
+    } else {
       conflicts.push(relative);
     }
   }
@@ -146,6 +180,10 @@ export async function initProject(directory, options = {}) {
 
     for (const relative of REQUIRED_TARGETS) {
       const destination = path.join(target, relative);
+      if (preservedRequired.has(relative)) {
+        skipped.push(relative);
+        continue;
+      }
       await rename(path.join(stagingRoot, relative), destination);
       installed.push(destination);
       created.push(relative);

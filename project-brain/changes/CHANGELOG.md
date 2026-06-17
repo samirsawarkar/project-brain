@@ -11,6 +11,12 @@ Update this file only when durable behavior, architecture, dependencies,
 constraints, terminology, or major decisions change. Git handles routine code
 history.
 
+## CLI 0.1.1 - 2026-06-17
+
+- Allowed `init` to repair partial installs when an existing
+  `PROJECT_BRAIN.md` is already a managed project-brain entrypoint.
+- Made `init` idempotent for valid existing installations.
+
 ## CLI 0.1.0 - 2026-06-15
 
 - Added the globally installable `project-brain` npm command.

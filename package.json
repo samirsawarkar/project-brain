@@ -1,6 +1,6 @@
 {
   "name": "project-brain-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Initialize and validate a model-independent project brain for AI coding editors.",
   "license": "MIT",
   "author": "Samir Sawarkar",
